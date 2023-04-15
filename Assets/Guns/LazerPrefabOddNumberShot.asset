@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f42ca1d320c1edc4da9f23eb2cf89fcd, type: 3}
+  m_Name: LazerPrefabOddNumberShot
+  m_EditorClassIdentifier: 
+  m_Type: 2
+  Name: Lazer Prefab Triple Shot
+  shootConfig: {fileID: 11400000, guid: 42aaa470bd7c07940b2db4bcf90e01b1, type: 2}
+  trailConfig: {fileID: 11400000, guid: d1cfd05df19709543b43a27e3860a45a, type: 2}
+  theAttackPoint: {fileID: 4735598275762739791, guid: 81542dff478fcf34a99d3d18edb64a6b, type: 3}

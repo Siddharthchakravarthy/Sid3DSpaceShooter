@@ -1,0 +1,54 @@
+{
+    "name": "Shooting",
+    "maps": [
+        {
+            "name": "Actions",
+            "id": "baaa9645-8293-4468-bfbd-d79b2be0115d",
+            "actions": [
+                {
+                    "name": "Shooting",
+                    "type": "Value",
+                    "id": "86005082-69af-4585-9c9e-7f0278996321",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TouchPress",
+                    "type": "Button",
+                    "id": "d5ef6396-238b-4d13-9448-24ccd7ed82b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "78763f1d-411c-4119-9449-b221801bb2bc",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shooting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a971564a-5940-4276-a0f6-ef77e66a8f63",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

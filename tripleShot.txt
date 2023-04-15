@@ -1,0 +1,53 @@
+    // // public void ShootTripleShot() {
+    // //     List<Lazer_Behaviour> arr = new List<Lazer_Behaviour>();
+    // //     List <TrailRenderer> arr1 = new List<TrailRenderer>();
+        
+    // //     for(int i = 0; i < 5; i++) {
+    // //         Lazer_Behaviour lazerPrefab = PoolOfLazerPrefabs.Get();
+        
+    // //         lazerPrefab.gameObject.SetActive(true);
+    // //         lazerPrefab.seconds = 0;
+    // //         lazerPrefab.transform.position = theAttackPoint.transform.position;
+
+    // //         TrailRenderer trail = PoolOfTR.Get();
+    // //         trail.transform.SetParent(lazerPrefab.transform, false);
+    // //         trail.transform.localPosition = Vector3.zero;
+    // //         trail.gameObject.SetActive(true);
+    // //         trail.emitting = true;
+    // //         arr.Add(lazerPrefab);
+    // //         arr1.Add(trail);
+            
+    // //     }
+    // //     ActiveMonoBeh.StartCoroutine(ShootTheTriple(arr, arr1));
+    // // }
+    // // private IEnumerator ShootTheTriple(List<Lazer_Behaviour> arr, List<TrailRenderer> arr1) {
+    // //     float angle = 5.0f;
+    // //     for(int i = 0; i < arr.Count; i++) {
+    // //         ActiveMonoBeh.StartCoroutine(ShootPlusExtraTriple(arr[i], arr1[i], (i % 2 == 0) ? i * angle : i * -angle));
+    // //     }
+    // //     yield return null;
+    // // }
+
+    // private IEnumerator ShootPlusExtraTriple(Lazer_Behaviour lazerPrefab, TrailRenderer trail, float angle){
+    //     lazerPrefab.transform.Rotate(Vector3.up, angle, Space.World);
+    //     while(lazerPrefab.seconds < lazerPrefab.DestroyTime) {
+            
+    //         lazerPrefab.transform.Translate(Vector3.up * 10 * Time.deltaTime, Space.Self);
+            
+    //         // MonoBehaviour.print(lazerPrefab.seconds);
+    //         lazerPrefab.timer = lazerPrefab.timer + Time.deltaTime;
+    //         lazerPrefab.seconds = Mathf.FloorToInt(lazerPrefab.timer % 60);
+    //         yield return null;
+            
+    //     }
+    //     lazerPrefab.transform.Rotate(Vector3.up, -angle, Space.World);
+    //     lazerPrefab.timer = 0.0f;
+    //     trail.emitting = false;
+        
+    //     lazerPrefab.gameObject.SetActive(false);
+    //     trail.gameObject.SetActive(false);
+        
+    //     yield return new WaitForSeconds(4.0f);
+    //     PoolOfTR.Release(trail);
+    //     PoolOfLazerPrefabs.Release(lazerPrefab);
+    // }

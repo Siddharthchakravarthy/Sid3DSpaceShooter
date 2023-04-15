@@ -1,0 +1,29 @@
+Triple Shot 
+
+
+around the world axis
+one shot one angle
+second shot angle * 5  
+third shot -angle * 5
+
+
+
+move relative to the local axis
+
+
+Make a reusable gun scriptable object
+
+do a coroutine with a for loop and use the single shot
+ coroutine with the while
+
+
+i am dumb
+
+
+
+-5 0 5
+1 * -angle , 0 * angle, 2-1 * angle
+
+
+i struggled in the easy section
+

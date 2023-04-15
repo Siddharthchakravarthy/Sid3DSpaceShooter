@@ -1,0 +1,19 @@
+else {
+            if(Input.GetKey(KeyCode.A)) {
+                transform.rotation = Quaternion.AngleAxis(Mathf.LerpAngle(transform.eulerAngles.z, 20.0f, 0.1f), Vector3.forward);
+            }
+            else if(Input.GetKey(KeyCode.D)) {
+                transform.rotation = Quaternion.AngleAxis(Mathf.LerpAngle(transform.eulerAngles.z, -20.0f, 0.1f), Vector3.forward);
+            }
+            else if(Input.GetKey(KeyCode.W)) {
+                transform.rotation = Quaternion.AngleAxis(Mathf.LerpAngle(transform.eulerAngles.x, 20.0f, 0.1f), Vector3.right);
+            }
+            else if (Input.GetKey(KeyCode.S)) {
+                transform.rotation = Quaternion.AngleAxis(Mathf.LerpAngle(transform.eulerAngles.x, -20.0f, 0.1f), Vector3.right);
+            }
+            else {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, 0.1f);
+            }
+            transform.Translate((Vector3.right * horizontalInput + Vector3.up * yaxisInput + Vector3.forward * forwardAndBackwardInput) * Speed * Time.deltaTime, Space.World);
+            transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 1.00f, ultimateYTopSize), Mathf.Clamp(transform.position.z, ultimateZSizeBackwardLimit, ultimateZSizeForwardLimit));
+        }
