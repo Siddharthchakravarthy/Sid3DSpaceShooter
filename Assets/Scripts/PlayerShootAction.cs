@@ -14,7 +14,7 @@ public class PlayerShootAction : MonoBehaviour
     [SerializeField]
     public GunType Type;
     
-    public Joystick joyStickVertical;
+    public Joystick FloatingJoystickForShooting;
 
     
     [SerializeField]
@@ -28,6 +28,7 @@ public class PlayerShootAction : MonoBehaviour
     public GunScriptableObject ActiveGun;
     public int PowerUpSeconds = 0;
 
+
     void Awake() {
         playerInput = GetComponent<PlayerInput>();
         ShootingAction = playerInput.actions.FindAction("Shooting");
@@ -38,6 +39,7 @@ public class PlayerShootAction : MonoBehaviour
         GunScriptableObject gun = Guns.Find(gun => gun.m_Type == Type);
         ActiveGun = gun;
         ActiveGun.Spawn(this);
+        
     }
 
     // private void OnEnable() {
@@ -58,8 +60,11 @@ public class PlayerShootAction : MonoBehaviour
     void Update()
     {
         bool canShoot = false;
-        Debug.Log(ShootingAction.ReadValue<Vector2>().x);
-        if(ShootingAction.ReadValue<Vector2>().x > 700.0f) {
+        // if(ShootingAction.ReadValue<Vector2>().x > 700.0f) {
+        //     canShoot = true;
+        // }
+        if(FloatingJoystickForShooting.Horizontal > 0 || FloatingJoystickForShooting.Vertical < 0 
+        || FloatingJoystickForShooting.Horizontal < 0 || FloatingJoystickForShooting.Vertical > 0) {
             canShoot = true;
         }
         if(canShoot) {
@@ -67,13 +72,16 @@ public class PlayerShootAction : MonoBehaviour
             canShoot = false;
         }
         
+        
+
         if(PowerUpHelper.CanUsePowerUp && Time.time > PowerUpSeconds + PowerUpHelper.PowerUpUseTime) {
             PowerUpHelper.CanUsePowerUp = false;
             GunType b = GunType.LazerPrefab;
-            PlayerShootAction player = GameObject.Find("Player").GetComponent<PlayerShootAction>();
+            // PlayerShootAction player = GameObject.Find("Player").GetComponent<PlayerShootAction>();
+            // i did this to get practice in the Find function
             GunScriptableObject gun = GameObject.Find("Player").GetComponent<PlayerShootAction>().Guns.Find(gun => gun.m_Type == b);
-            player.ActiveGun = gun;
-            player.ActiveGun.Spawn(player);
+            ActiveGun = gun;
+            ActiveGun.Spawn(this);
         }
         
 

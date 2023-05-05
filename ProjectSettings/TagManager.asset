@@ -17,9 +17,9 @@ TagManager:
   - Player
   - Enemy
   - PowerUp
-  - 
-  - 
-  - 
+  - PostProcessLayer
+  - PowerUpPostProcess
+  - PostProcessingExclude
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PowerUpPostProcess
+    uniqueID: 1138927893
     locked: 0

@@ -14,14 +14,23 @@ public class Enemy : MonoBehaviour
     
     Vector3 SpawnLocation;
     public List<EnemyMovementScript> EnemyPrefabs;
-    
-    public float SpawnTime = 2.0f;
+    [SerializeField]
+    private float SpawnTime = 5.0f;
     public float Timer = 0.0f;
     public static ObjectPool<EnemyMovementScript> PoolOfEnemy;
     void Awake()
     {
         // EnemyPrefabs = GetComponent<EnemyMovementScript>();
         PoolOfEnemy = new ObjectPool<EnemyMovementScript>(CreateEnemy, OnTakeFromPool, OnReleaseFromPool,null, false, 100);
+        if(UIManager.Easy) {
+            SpawnTime = 6.0f;
+        }
+        else if(UIManager.Medium) {
+            SpawnTime = 4.0f;
+        }
+        else if(UIManager.Hard) {
+            SpawnTime = 2.0f;
+        }
     }
 
     private EnemyMovementScript CreateEnemy() {
@@ -43,14 +52,14 @@ public class Enemy : MonoBehaviour
     }
 
     private void SpawnEnemy(EnemyMovementScript Enemy) {
-        SpawnLocation = new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(2.40f, 4.4f), 45.0f);
+        SpawnLocation = new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(2.40f, 4.4f), 50.0f);
         Enemy.transform.position = SpawnLocation;
     } 
     // Update is called once per frame
     void Update()
     {
         PowerUpSpawnTime = PowerUpHelper.GetSpawnTime();
-    
+        // nange nam players gelbeku adke spawn time 5 seconds ittideeni illa kashta aagatte gelladu
         if(Time.time > Timer) {
             Timer = SpawnTime + Time.time;
             PoolOfEnemy.Get();
@@ -64,7 +73,6 @@ public class Enemy : MonoBehaviour
                 PowerUpBehaviour.GoingOn = true;
                 powerup.transform.SetParent(this.transform);
             }
-        
         }
     }
 

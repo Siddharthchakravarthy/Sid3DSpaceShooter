@@ -112,3 +112,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   E_MoveSpeed: 4
+  BlastAudio: {fileID: 8300000, guid: ab22c9c958aab6a438be4c1d9eeb87ae, type: 3}

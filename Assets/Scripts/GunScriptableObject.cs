@@ -8,25 +8,25 @@ public class GunScriptableObject : ScriptableObject
 {
     //idu type of the gun
     public GunType m_Type;
-    
-    //Name of the gun idu
-    public string Name;
 
     public ShootConfigurationScriptableOBJ shootConfig;
     public TrailConfigurationScriptableOBJ trailConfig;
-    public GameObject theAttackPoint;
+    public List<Transform> theAttackPoint;
     private MonoBehaviour ActiveMonoBeh;
 
 
     private float LastShootTime;
     private ObjectPool<Lazer_Behaviour> PoolOfLazerPrefabs;
     private ObjectPool<TrailRenderer> PoolOfTR;
-    //put in the player only here yaake andre naanu player olage inda ne shoot maadtideeni no theAttackPoint
+    //put in the player only here yaake andre naanu player olage inda ne shoot maadtideeni no theAttackPoint[i]
     // but might add later in the future
     
 
     public void Spawn(MonoBehaviour ActiveMB) {
         ActiveMonoBeh = ActiveMB;
+
+        theAttackPoint[0] = ActiveMonoBeh.transform.Find("AttackPointLeft");
+        theAttackPoint[1] = ActiveMonoBeh.transform.Find("AttackPointRight");
 
         LastShootTime = 0f;
 
@@ -37,40 +37,68 @@ public class GunScriptableObject : ScriptableObject
         }
 
     }
-
+    bool attackPointLeftDone = false;
     public void Shoot() {
-
-        theAttackPoint.transform.position = ActiveMonoBeh.transform.position;
-        if(Time.time > shootConfig.m_fireRate + LastShootTime){
-            LastShootTime = Time.time;
-            Vector3 shootDirection = theAttackPoint.transform.forward + new Vector3(
-                Random.Range(-shootConfig.m_Spread.x, shootConfig.m_Spread.x),
-                Random.Range(-shootConfig.m_Spread.y, shootConfig.m_Spread.y),
-                Random.Range(-shootConfig.m_Spread.z, shootConfig.m_Spread.z)
-            );
-            shootDirection.Normalize();
-            if(shootConfig.isHitScan) {
-                if(Physics.Raycast(theAttackPoint.transform.position, shootDirection, out RaycastHit hit, 
-                    float.MaxValue, shootConfig.m_Hitmask)) {
-                    ActiveMonoBeh.StartCoroutine(PlayTrail(theAttackPoint.transform.position, hit.point, hit));
+        for(int i = 0; i < theAttackPoint.Count; i++) {
+            if(Time.time > shootConfig.m_fireRate + LastShootTime &&  i == 0 && attackPointLeftDone == false){
+                attackPointLeftDone = true;
+                LastShootTime = Time.time;
+                Vector3 shootDirection = theAttackPoint[i].transform.forward + new Vector3(
+                    Random.Range(-shootConfig.m_Spread.x, shootConfig.m_Spread.x),
+                    Random.Range(-shootConfig.m_Spread.y, shootConfig.m_Spread.y),
+                    Random.Range(-shootConfig.m_Spread.z, shootConfig.m_Spread.z)
+                );
+                shootDirection.Normalize();
+                if(shootConfig.isHitScan) {
+                    if(Physics.Raycast(theAttackPoint[i].transform.position, shootDirection, out RaycastHit hit, 
+                        float.MaxValue, shootConfig.m_Hitmask)) {
+                        ActiveMonoBeh.StartCoroutine(PlayTrail(theAttackPoint[i].transform.position, hit.point, hit));
+                    }
+                    else {
+                        ActiveMonoBeh.StartCoroutine(PlayTrail(theAttackPoint[i].transform.position, 
+                        theAttackPoint[i].transform.position + shootDirection * trailConfig.m_MissDistance,
+                        new RaycastHit() ));
+                    }
+                }
+                else if(shootConfig.tripleShot) {
+                    ShootTheOddNumber(theAttackPoint[i]);
                 }
                 else {
-                    ActiveMonoBeh.StartCoroutine(PlayTrail(theAttackPoint.transform.position, 
-                    theAttackPoint.transform.position + shootDirection * trailConfig.m_MissDistance,
-                    new RaycastHit() ));
+                    ShootThePrefab(theAttackPoint[i]);
+                } 
+            }
+            else if(Time.time > shootConfig.m_fireRate + LastShootTime &&  i == 1 && attackPointLeftDone == true){
+                attackPointLeftDone = false;
+                LastShootTime = Time.time;
+                Vector3 shootDirection = theAttackPoint[i].transform.forward + new Vector3(
+                    Random.Range(-shootConfig.m_Spread.x, shootConfig.m_Spread.x),
+                    Random.Range(-shootConfig.m_Spread.y, shootConfig.m_Spread.y),
+                    Random.Range(-shootConfig.m_Spread.z, shootConfig.m_Spread.z)
+                );
+                shootDirection.Normalize();
+                if(shootConfig.isHitScan) {
+                    if(Physics.Raycast(theAttackPoint[i].transform.position, shootDirection, out RaycastHit hit, 
+                        float.MaxValue, shootConfig.m_Hitmask)) {
+                        ActiveMonoBeh.StartCoroutine(PlayTrail(theAttackPoint[i].transform.position, hit.point, hit));
+                    }
+                    else {
+                        ActiveMonoBeh.StartCoroutine(PlayTrail(theAttackPoint[i].transform.position, 
+                        theAttackPoint[i].transform.position + shootDirection * trailConfig.m_MissDistance,
+                        new RaycastHit() ));
+                    }
                 }
-            }
-            else if(shootConfig.tripleShot) {
-                ShootTheOddNumber();
-            }
-            else {
-                ShootThePrefab();
+                else if(shootConfig.tripleShot) {
+                    ShootTheOddNumber(theAttackPoint[i]);
+                }
+                else {
+                    ShootThePrefab(theAttackPoint[i]);
+                } 
             }
         }
         
     }
 
-    public void ShootThePrefab() {
+    public void ShootThePrefab(Transform theAttackPoint) {
         Lazer_Behaviour lazerPrefab = PoolOfLazerPrefabs.Get();
         lazerPrefab.gameObject.SetActive(true);
         lazerPrefab.seconds = 0;
@@ -87,7 +115,7 @@ public class GunScriptableObject : ScriptableObject
         
     }
 
-    private void ShootTheOddNumber() {
+    private void ShootTheOddNumber(Transform theAttackPoint) {
         List<Lazer_Behaviour> LazerArr = new List<Lazer_Behaviour>();
         List<TrailRenderer> TrailArr = new List<TrailRenderer>();
         for(int i = 0; i < 5; i++) {
@@ -163,11 +191,11 @@ public class GunScriptableObject : ScriptableObject
         }
         lazerPrefab.timer = 0.0f;
         trail.emitting = false;
-        
+
         lazerPrefab.gameObject.SetActive(false);
         trail.gameObject.SetActive(false);
-        
         yield return new WaitForSeconds(4.0f);
+        
         PoolOfTR.Release(trail);
         PoolOfLazerPrefabs.Release(lazerPrefab);
     }

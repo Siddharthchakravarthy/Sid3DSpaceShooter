@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: LazerPrefab
   m_EditorClassIdentifier: 
   m_Type: 1
-  Name: LazerPrefab
   shootConfig: {fileID: 11400000, guid: fcdb1d276e97f0c4a80eabeeb3926d98, type: 2}
   trailConfig: {fileID: 11400000, guid: 7077fbe583445b84c81f10450893a839, type: 2}
-  theAttackPoint: {fileID: 4735598275762739791, guid: 81542dff478fcf34a99d3d18edb64a6b, type: 3}
+  theAttackPoint:
+  - {fileID: 0}
+  - {fileID: 0}

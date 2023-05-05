@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: LazerPrefabOddNumberShot
   m_EditorClassIdentifier: 
   m_Type: 2
-  Name: Lazer Prefab Triple Shot
   shootConfig: {fileID: 11400000, guid: 42aaa470bd7c07940b2db4bcf90e01b1, type: 2}
   trailConfig: {fileID: 11400000, guid: d1cfd05df19709543b43a27e3860a45a, type: 2}
-  theAttackPoint: {fileID: 4735598275762739791, guid: 81542dff478fcf34a99d3d18edb64a6b, type: 3}
+  theAttackPoint:
+  - {fileID: 0}
+  - {fileID: 0}

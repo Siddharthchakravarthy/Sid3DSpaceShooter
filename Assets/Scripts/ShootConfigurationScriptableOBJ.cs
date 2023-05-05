@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Shoot Configurations", menuName = "Guns/Shoot Config", order = 2)]
 public class ShootConfigurationScriptableOBJ : ScriptableObject
 {
-
    public Lazer_Behaviour LazerPrefab;
    public bool isHitScan = false;
    public LayerMask m_Hitmask;

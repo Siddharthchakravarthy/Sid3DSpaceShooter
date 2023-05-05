@@ -18,4 +18,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 129
   m_Spread: {x: 0, y: 0, z: 0}
-  m_fireRate: 0.25
+  m_fireRate: 0.15
+  tripleShot: 0

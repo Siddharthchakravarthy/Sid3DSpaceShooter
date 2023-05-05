@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public Joystick joyStickVertical;
     public Camera Caamera;
     public Transform Lazer;
-
+    public Transform HandleOfVerticalJoyStick;
     public float TimeBetweenShots = 1.0f;
     public float TimerBetweenShots;
     public bool canShootFromThisScript;
@@ -74,10 +74,15 @@ public class PlayerMovement : MonoBehaviour
         if(joystick.Vertical < -0.3f){
             forwardAndBackwardInput = -1;
         }
-        if(joyStickVertical.Vertical > 0.3f) {
+        //this is done to keep the handle from moving sideways
+        if(joyStickVertical.Horizontal > 0 || joyStickVertical.Horizontal < 0) {
+            HandleOfVerticalJoyStick.position = Vector3.right * HandleOfVerticalJoyStick.parent.position.x + Vector3.up * HandleOfVerticalJoyStick.position.y;
+        }
+
+        if(joyStickVertical.Vertical > 0.1f) {
             VerticalInput = 1;
         }
-        if(joyStickVertical.Vertical < -0.3f) {
+        if(joyStickVertical.Vertical < -0.1f) {
             VerticalInput = -1;
         }
         // print(horizontalInput);

@@ -9,10 +9,16 @@ public class Lazer_Behaviour : MonoBehaviour
     public float timer = 0.0f;
     // public ParticleSystem particle;
     public int seconds;
-    public void printer(float seconds) {
-        print(seconds);
-    }
 
+    [SerializeField]
+    private AudioClip RocketLazerShootSound;
+
+    private AudioSource SourceOfAudio;
+
+    [SerializeField] private AudioClip BlastAudio;
+    void Awake() {
+        SourceOfAudio = GetComponent<AudioSource>();
+    }
     // void Start() {
     //     transform.GetComponent<ParticleSystem>().Stop();
     //     // ParticleSystem partic = Instantiate(particle);
